@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diabetes Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header class="navbar">
+        <h1>Diabetes Predictor</h1>
+    </header>
+    <div class="container">
+        <div class="main-content">
+            <h2>Diabetes Prediction</h2>
+            <form action="/predict" method="post" class="form-grid">
+                <div class="form-group">
+                    <label for="pregnancies">Number of Pregnancies:</label>
+                    <input type="number" id="pregnancies" name="pregnancies" required>
+                </div>
+                <div class="form-group">
+                    <label for="glucose">Glucose Level (Normal: 70-140 mg/dL):</label>
+                    <input type="number" name="glucose" required>
+                </div>
+                <div class="form-group">
+                    <label for="blood_pressure">Blood Pressure (Normal: < 120/80 mmHg):</label>
+                    <input type="number" name="blood_pressure" required>
+                </div>
+                <div class="form-group">
+                    <label for="skin_thickness">Skin Thickness (Normal: 5-25 mm):</label>
+                    <input type="number" name="skin_thickness" required>
+                </div>
+                <div class="form-group">
+                    <label for="insulin">Insulin Levels (Normal: 2-25 µIU/mL):</label>
+                    <input type="number" name="insulin" required>
+                </div>
+                <div class="form-group">
+                    <label for="bmi">BMI (Normal: 18.5-24.9):</label>
+                    <input type="number" step="0.1" name="bmi" required>
+                </div>
+                <div class="form-group">
+                    <label for="pedigree">Diabetes Pedigree Function (Normal: 0.0-1.0):</label>
+                    <input type="number" step="0.001" name="pedigree" required>
+                </div>
+                <div class="form-group">
+                    <label for="age">Age:</label>
+                    <input type="number" name="age" required>
+                </div>
+                <button type="submit">Predict</button>
+            </form>
+            {% if prediction is not none %}
+                <div class="result">
+                    <h2>Predicted Outcome: <span>{{ prediction }}</span></h2>
+                </div>
+            {% endif %}
+            <div class="metrics">
+                <h3>Model Performance Metrics</h3>
+                <table>
+                    <tr>
+                        <th>Metric</th>
+                        <th>Training Set</th>
+                        <th>Test Set</th>
+                    </tr>
+                    <tr>
+                        <td>Accuracy</td>
+                        <td>{{ train_accuracy | round(2) if train_accuracy is not none else 0.0 | round(2) }}</td>
+                        <td>{{ test_accuracy | round(2) if test_accuracy is not none else 0.0 | round(2) }}</td>
+                    </tr>
+                </table>
+                <h4>Training Classification Report:</h4>
+                <table>
+                    <tr>
+                        <th>Class</th>
+                        <th>Precision</th>
+                        <th>Recall</th>
+                        <th>F1-Score</th>
+                        <th>Support</th>
+                    </tr>
+                    {% for key, value in train_report.items() %}
+                        {% if key not in ['accuracy', 'macro avg', 'weighted avg'] %}
+                            <tr>
+                                <td>{{ key }}</td>
+                                <td>{{ value.precision | round(2) if value.precision is not none else 0.0 | round(2) }}</td>
+                                <td>{{ value.recall | round(2) if value.recall is not none else 0.0 | round(2) }}</td>
+                                <td>{{ value['f1-score'] | round(2) if value['f1-score'] is not none else 0.0 | round(2) }}</td>
+                                < <td>{{ value.support }}</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </table>
+                <h4>Testing Classification Report:</h4>
+                <table>
+                    <tr>
+                        <th>Class</th>
+                        <th>Precision</th>
+                        <th>Recall</th>
+                        <th>F1-Score</th>
+                        <th>Support</th>
+                    </tr>
+                    {% for key, value in test_report.items() %}
+                        {% if key not in ['accuracy', 'macro avg', 'weighted avg'] %}
+                            <tr>
+                                <td>{{ key }}</td>
+                                <td>{{ value.precision | round(2) if value.precision is not none else 0.0 | round(2) }}</td>
+                                <td>{{ value.recall | round(2) if value.recall is not none else 0.0 | round(2) }}</td>
+                                <td>{{ value['f1-score'] | round(2) if value['f1-score'] is not none else 0.0 | round(2) }}</td>
+                                <td>{{ value.support }}</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

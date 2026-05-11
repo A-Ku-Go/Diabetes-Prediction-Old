@@ -1,0 +1,99 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #050026;
+    padding: 20px;
+}
+
+.navbar {
+    background-color: #007bff; /* Blue bar color */
+    padding: 15px;
+    text-align: center;
+    color: white;
+    margin-bottom: 20px;
+}
+
+.container {
+    max-width: 800px; /* Increased width for better layout */
+    margin: auto;
+    padding: 20px;
+}
+
+h2 {
+    text-align: center;
+    color: #a9a9a9;
+}
+
+h3, h4 {
+    color: #a9a9a9;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 columns */
+    gap: 30px; /* Increased gap between inputs */
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    margin-bottom: 5px;
+    display: block;
+    color: #a9a9a9;
+}
+
+input {
+    padding: 10px;
+    width: 100%;
+    max-width: 250px; /* Set a maximum width for input fields */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+button {
+    grid-column: span 2; /* Button spans across both columns */
+    padding: 10px;
+    background-color: #0096c7;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #0096ff;
+}
+
+.result, .metrics {
+    margin-top: 20px;
+    text-align: center;
+    padding: 10px;
+    background-color: #e7f7e7;
+    border-radius: 5px;
+}
+
+.result span {
+    font-weight: bold;
+    font-size: 18px;
+    color: #d9534f; /* Bootstrap danger color */
+}
+
+.metrics pre {
+    text-align: left; /* Align text to the left for better readability */
+    background-color: #f8f9fa; /* Light background for the report */
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto; /* Allow horizontal scrolling if needed */
+}
+
+.footer {
+    background-color: #007bff; /* Blue footer background */
+    color: white;
+    padding: 15px;
+    text-align: center;
+    margin-top: 20px; /* Space between footer and main content */
+    border-radius: 5px; /* Rounded corners */
+}
